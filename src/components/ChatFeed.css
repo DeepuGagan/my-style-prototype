@@ -1,20 +1,20 @@
 .chat-input {
-    position: fixed;
-    bottom: 0;
-    background-color: grey;
-    padding: 10px;
+	position: fixed;
+	bottom: 0;
+	background-color: grey;
+	padding: 10px;
 }
 
-.rce-mbox-left {
-    background-color: grey;
-    font-size: 16;
-    /* color: azure; */
-    font-weight: bold;
+.chat-bubble {
+	font-size: 16;
+	font-weight: bold;
+	margin: 8px;
+}
+
+.rce-mbox {
+	background-color: #d8e1e2;
 }
 
 .rce-mbox-right {
-    background-color: #f1f1f1;
-    font-size: 16;
-    /* color: azure; */
-    font-weight: bold;
+	background-color: #f2f2f2;
 }
