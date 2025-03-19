@@ -3,12 +3,19 @@
 	bottom: 0;
 	background-color: grey;
 	padding: 10px;
+	height: 10vh;
+}
+
+.chat-feed {
+	height: 80vh;
+	overflow: scroll;
 }
 
 .chat-bubble {
 	font-size: 16;
 	font-weight: bold;
 	margin: 8px;
+	white-space: pre-wrap;
 }
 
 .rce-mbox {
