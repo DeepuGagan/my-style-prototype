@@ -9,9 +9,9 @@
 
 ## 🌟 Overview
 
-This repository contains a prototype of the MyStyle-InStyle application, developed during an innovation/hackathon project. The application demonstrates an AI-powered fashion assistant that provides personalized style recommendations and insights.
+This repository showcases an innovative proof-of-concept for the MyStyle-InStyle application, developed as part of an organizational innovation/hackathon initiative. The application reimagines fashion assistance through advanced AI technologies that deliver personalized style guidance tailored to individual preferences.
 
-**Note:** This is a prototype with some features and functionalities still under development. The current version showcases the core concept and user experience while certain minor features are yet to be fully implemented.
+**Note:** This project represents an early-stage prototype focused on demonstrating core concepts and user experience flows. While the primary functionality is operational, some auxiliary features remain in active development as we continue to refine and enhance the platform.
 
 ## ✨ Key Features
 
@@ -20,11 +20,13 @@ This repository contains a prototype of the MyStyle-InStyle application, develop
 - **Interactive Chat Interface**: Engage in natural conversations about style and fashion
 - **Multi-platform Support**: Runs on web browsers, Android, and iOS devices
 
-## 🔍 Technical Details
+## 🔍 Technical Architecture
 
-- **AI Integration**: Most features are powered by OpenAI's models through API integration
-- **Data Limitations**: Currently using mocked data with location-specific content for Paris only
-- **API Usage**: Requires an OpenAI API key (limited functionality without a valid key)
+- **AI-Driven Experience**: The application leverages OpenAI's sophisticated language and vision models to analyze styles, generate recommendations, and provide personalized fashion insights. These AI capabilities form the cornerstone of the user experience.
+
+- **Data Implementation**: To facilitate rapid development and testing, the application currently utilizes carefully curated synthetic data optimized for the Paris fashion scene. This approach enables meaningful demonstrations while maintaining development agility.
+
+- **API Integration**: The system interfaces with OpenAI's API infrastructure to power its intelligent features. While API key limitations exist in the prototype environment, the architecture is designed to scale seamlessly with expanded access.
 
 ## 🚀 Getting Started
 
