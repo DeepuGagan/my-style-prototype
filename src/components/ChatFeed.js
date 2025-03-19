@@ -3,21 +3,27 @@ import "react-chat-elements/dist/main.css"
 import { Input, Button } from 'react-chat-elements'
 import ChatBubbles from './ChatBubbles'
 import "./ChatFeed.css"
+import { generateChatGPTRes } from '../util/chatgpt'
 
 const ChatFeed = (props) => {
 	const [thread, setThread] = useState([])
 	const [curMessage, setCurMessage ] = useState('') 
 	const userMsg = useRef();
-	const addMessageToThread = () => {
+
+	const addMessageToThread = async () => {
 		setThread(prevMessages => [
 			...prevMessages,
 			{
 				MsgBy: 'user',
 				MsgText: curMessage,
-			},
+			}
+		])
+		const chatgptRes = await generateChatGPTRes(curMessage)
+		setThread(prevMessages => [
+			...prevMessages,
 			{
 				MsgBy: 'MyStyle',
-				MsgText: `Reply of: ${curMessage}`,
+				MsgText: `${chatgptRes}`,
 			}
 		])
 		setCurMessage('')
