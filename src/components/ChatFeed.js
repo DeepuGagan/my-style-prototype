@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import "react-chat-elements/dist/main.css"
-import { Input, Button } from 'react-chat-elements'
+import { Input, Button, MessageBox } from 'react-chat-elements'
 import ChatBubbles from './ChatBubbles'
 import "./ChatFeed.css"
 import { generateChatGPTRes } from '../util/chatgpt'
 
 const ChatFeed = (props) => {
 	const [thread, setThread] = useState([])
-	const [curMessage, setCurMessage ] = useState('') 
+	const [curMessage, setCurMessage ] = useState('')
+	const [typingBubble, setTypingBubble ] = useState(false) 
 	const userMsg = useRef();
 
 	const addMessageToThread = async () => {
@@ -18,7 +19,9 @@ const ChatFeed = (props) => {
 				MsgText: curMessage,
 			}
 		])
+		setTypingBubble(true)
 		const chatgptRes = await generateChatGPTRes(curMessage)
+		setTypingBubble(false)
 		setThread(prevMessages => [
 			...prevMessages,
 			{
@@ -42,9 +45,21 @@ const ChatFeed = (props) => {
     userMsg.current.value = curMessage;
   }, [curMessage]);
 
+	
+
 	return (
-		<>
+		<div className='chat-feed'>
 			<ChatBubbles thread={thread} />
+			{typingBubble 
+				? <MessageBox
+						className='chat-bubble'
+						position={'left'}
+						type={"text"}
+						title={'MyStyle'}
+						text={`Typing...`}
+					/>
+				: null
+		}
 			<footer>
 				<Input
 					className='chat-input'
@@ -57,7 +72,7 @@ const ChatFeed = (props) => {
 					rightButtons={<Button color='white' backgroundColor='black' text='Send' onClick={addMessageToThread}/>}
 				/>
 			</footer>
-		</>
+		</div>
 	)
 }
 
