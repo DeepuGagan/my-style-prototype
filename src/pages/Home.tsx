@@ -4,24 +4,24 @@ import ChatFeed from '../components/ChatFeed'
 import './Home.css';
 
 const Home: React.FC = () => {
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>MyStyle - InStyle</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        {/* <ExploreContainer /> */}
-        <ChatFeed />
-      </IonContent>
-    </IonPage>
-  );
+	return (
+		<IonPage>
+			<IonHeader>
+				<IonToolbar>
+					<IonTitle>MyStyle - InStyle</IonTitle>
+				</IonToolbar>
+			</IonHeader>
+			<IonContent fullscreen>
+				<IonHeader collapse="condense">
+					<IonToolbar>
+						<IonTitle size="large">Blank</IonTitle>
+					</IonToolbar>
+				</IonHeader>
+				{/* <ExploreContainer /> */}
+				<ChatFeed />
+			</IonContent>
+		</IonPage>
+	);
 };
 
 export default Home;
