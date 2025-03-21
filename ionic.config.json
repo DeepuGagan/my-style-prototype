@@ -1,5 +1,7 @@
 {
   "name": "my-style-instyle-poc",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }
