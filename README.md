@@ -1,4 +1,13 @@
-# MyStyle-InStyle Prototype
+<h1 align="center">
+  <br>
+  🌟 ORGANIZATIONAL INNOVATION PROJECT 🌟<br>
+  MyStyle-InStyle Prototype
+  <br>
+</h1>
+
+<p align="center">
+  <b>Created during our organization's prestigious hackathon initiative</b>
+</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Prototype-yellow" alt="Status: Prototype">
@@ -8,7 +17,9 @@
   <img src="https://img.shields.io/badge/Origin-Organization%20Hackathon-brightgreen" alt="Origin: Organization Hackathon">
 </p>
 
-> **⭐ ORGANIZATIONAL INNOVATION PROJECT**: This application was developed as part of our organization's innovation/hackathon initiative, showcasing the potential of AI-driven fashion technology.
+<p align="center">
+  <i>This application represents one of the flagship projects from our organization's innovation initiative, demonstrating how AI can revolutionize fashion guidance and personal styling.</i>
+</p>
 
 ## 🌟 Overview
 
@@ -22,6 +33,15 @@ This repository showcases an innovative proof-of-concept for the MyStyle-InStyle
 - **Visual Recognition**: Analyzes uploaded images to identify fashion items
 - **Interactive Chat Interface**: Engage in natural conversations about style and fashion
 - **Multi-platform Support**: Runs on web browsers, Android, and iOS devices
+
+
+## 📝 Innovation Background
+
+- **Organizational Hackathon**: This project emerged from our organization's dedicated innovation initiative, designed to explore cutting-edge technologies and applications
+- **Innovation Focus**: The hackathon challenged teams to reimagine how AI could transform fashion guidance and style recommendations
+- **Prototype Evolution**: The application continues to evolve based on organizational priorities and technology advances
+- **Strategic Exploration**: While some features have constrained functionality due to API limitations, the project successfully demonstrates the strategic potential of AI-driven fashion assistance
+
 
 ## 🔍 Technical Architecture
 
@@ -75,16 +95,19 @@ Create a `.env` file in the root directory with your OpenAI API key:
 OPENAI_API_KEY=your_api_key_here
 ```
 
-## 📝 Innovation Background
-
-- **Organizational Hackathon**: This project emerged from our organization's dedicated innovation initiative, designed to explore cutting-edge technologies and applications
-- **Innovation Focus**: The hackathon challenged teams to reimagine how AI could transform fashion guidance and style recommendations
-- **Prototype Evolution**: The application continues to evolve based on organizational priorities and technology advances
-- **Strategic Exploration**: While some features have constrained functionality due to API limitations, the project successfully demonstrates the strategic potential of AI-driven fashion assistance
-
 ## 📱 Screenshots
 
 *Screenshots will be added soon*
+
+## 🛣️ Development Status & Roadmap
+
+- **Organizational Hackathon Origin**: This project was born as a flagship initiative during our organization's innovation hackathon, where it was selected for its innovative approach to AI-powered fashion assistance
+
+- **Current Status**: The application is in prototype stage, focused on demonstrating core AI capabilities while maintaining development agility
+
+- **Hackathon Influence**: The project's architecture and feature prioritization directly reflect the strategic objectives defined during the organizational hackathon process
+
+- **Strategic Direction**: Following the success at the organizational hackathon, this prototype is positioned to evolve into a more robust product with expanded capabilities
 
 ## 🔄 Future Enhancements
 
