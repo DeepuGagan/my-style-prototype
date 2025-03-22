@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import "react-chat-elements/dist/main.css"
 import { Input, Button, MessageBox } from 'react-chat-elements'
 import ChatBubbles from './ChatBubbles'
+import TypingLoader from './TypingLoader'
 import "./ChatFeed.css"
 import { generateChatGPTRes } from '../util/chatgpt'
 
@@ -50,16 +51,7 @@ const ChatFeed = (props) => {
 	return (
 		<div className='chat-feed'>
 			<ChatBubbles thread={thread} />
-			{typingBubble 
-				? <MessageBox
-						className='chat-bubble'
-						position={'left'}
-						type={"text"}
-						title={'MyStyle'}
-						text={`Typing...`}
-					/>
-				: null
-		}
+			<TypingLoader typingBubble={typingBubble}/>	
 			<footer>
 				<Input
 					className='chat-input'

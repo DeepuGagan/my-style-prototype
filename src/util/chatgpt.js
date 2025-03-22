@@ -17,7 +17,9 @@ const chatgptTurbo = async (prompt) => {
 }
 
 const chatgptDavinci = async (prompt) => {
-	prompt = prompt.includes("hi") || prompt.includes("Hi") ? prompt :  `Which 5 instyle magazine article links do you recommend on "${prompt}"`
+	const welcomePrompts = ["hi", "Hi", "Hello", "hello", "hi ", "Hi ", "Hello ", "hello "]
+	prompt = welcomePrompts.includes(prompt) ? prompt :  `Which 5 instyle magazine article links do you recommend on "${prompt}"`
+	console.log('prompt: ', prompt)
 	const API_ENDPOINT = 'https://api.openai.com/v1/completions'
 	const requestBody = {
 		model: "text-davinci-003",
