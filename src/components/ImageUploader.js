@@ -61,7 +61,7 @@ console.log('image',curMessage)
                 onChange={onChange}
                 maxNumber={maxImgs}
                 dataURLKey="data_url"
-                acceptType={["jpg"]}
+                acceptType={['jpg', 'JPEG', 'PNG8', 'PNG24', 'GIF', 'BMP', 'WEBP', 'RAW', 'ICO', 'PDF', 'TIFF']}
             >
                 {({
                     onImageUpload,
