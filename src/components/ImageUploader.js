@@ -10,12 +10,12 @@ const ImageUploader = ({
 }) => {
     const [images, setImages] = React.useState([]);
 
-    const addImageToThread = async () => {
+    const addImageToThread = async ({base64Img}) => {
         setThread(prevMessages => [
             ...prevMessages,
             {
                 MsgBy: 'user',
-                MsgText: curMessage,
+                MsgText: base64Img,
                 MsgType: 'msg-img',
             }
         ])
@@ -46,7 +46,8 @@ const ImageUploader = ({
         // data for submit
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
-        addImageToThread()
+        const base64Img = imageList[0].data_url
+        addImageToThread({base64Img})
       };
 console.log('image',curMessage)
     // const showImg = () => <img src={images[0]['data_url']} alt="Red dot" width='100px' />
