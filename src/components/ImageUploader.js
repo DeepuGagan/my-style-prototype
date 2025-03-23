@@ -2,16 +2,46 @@ import React from "react";
 import ImageUploading from "react-images-uploading";
 
 
-const ImageUploader = () => {
+const ImageUploader = ({
+    setThread,
+    curMessage,
+    setCurMessage,
+    setTypingBubble
+}) => {
     const [images, setImages] = React.useState([]);
 
+    const addImageToThread = async () => {
+        setThread(prevMessages => [
+            ...prevMessages,
+            {
+                MsgBy: 'user',
+                MsgText: curMessage,
+                MsgType: 'msg-img',
+            }
+        ])
+        setTypingBubble(true)
+        const googleVisionApiRes = 'Whatever vison api gives/ we make it to give'
+        setTypingBubble(false)
+        setThread(prevMessages => [
+            ...prevMessages,
+            {
+                MsgBy: 'MyStyle',
+                MsgText: `${googleVisionApiRes}`,
+                MsgType: 'msg-txt',//'msg-img',
+            }
+        ])
+        setCurMessage('')
+    }
 
 
-    const onChange = (imageList, addUpdateIndex) => {
+    const onChange = (sets) => {
         // data for submit
-        console.log(imageList, addUpdateIndex);
-        setImages(imageList);
-      };
+        console.log('............................................',sets);
+        console.log('------------------------------------>>',sets[0].data_url);
+        console.log(sets[0].imageList, sets[0].addUpdateIndex);
+        setImages(sets[0].imageList);
+        addImageToThread()
+    };
 console.log('image',curMessage)
     // const showImg = () => <img src={images[0]['data_url']} alt="Red dot" width='100px' />
 
