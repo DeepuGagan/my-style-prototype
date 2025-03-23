@@ -34,14 +34,20 @@ const ImageUploader = ({
     }
 
 
-    const onChange = (sets) => {
+    // const onChange = (sets) => {
+    //     // data for submit
+    //     console.log('............................................',sets);
+    //     console.log('------------------------------------>>',sets[0].data_url);
+    //     console.log(sets[0].imageList, sets[0].addUpdateIndex);
+    //     setImages(sets[0].imageList);
+    //     addImageToThread()
+    // };
+    const onChange = (imageList, addUpdateIndex) => {
         // data for submit
-        console.log('............................................',sets);
-        console.log('------------------------------------>>',sets[0].data_url);
-        console.log(sets[0].imageList, sets[0].addUpdateIndex);
-        setImages(sets[0].imageList);
+        console.log(imageList, addUpdateIndex);
+        setImages(imageList);
         addImageToThread()
-    };
+      };
 console.log('image',curMessage)
     // const showImg = () => <img src={images[0]['data_url']} alt="Red dot" width='100px' />
 
