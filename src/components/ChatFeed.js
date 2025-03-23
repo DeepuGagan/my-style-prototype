@@ -5,6 +5,8 @@ import ChatBubbles from './ChatBubbles'
 import TypingLoader from './TypingLoader'
 import "./ChatFeed.css"
 import { generateChatGPTRes } from '../util/chatgpt'
+import ImageUploader from './ImageUploader'
+
 
 const ChatFeed = (props) => {
 	const [thread, setThread] = useState([])
@@ -18,6 +20,7 @@ const ChatFeed = (props) => {
 			{
 				MsgBy: 'user',
 				MsgText: curMessage,
+				MsgType: 'msg-txt',
 			}
 		])
 		setTypingBubble(true)
@@ -28,6 +31,7 @@ const ChatFeed = (props) => {
 			{
 				MsgBy: 'MyStyle',
 				MsgText: `${chatgptRes}`,
+				MsgType: 'msg-txt',
 			}
 		])
 		setCurMessage('')
@@ -46,7 +50,7 @@ const ChatFeed = (props) => {
     userMsg.current.value = curMessage;
   }, [curMessage]);
 
-	
+	console.log({curMessage,thread})
 
 	return (
 		<div className='chat-feed'>
@@ -61,7 +65,12 @@ const ChatFeed = (props) => {
 					value={curMessage}
 					referance={userMsg}
 					onKeyDown={onKeyDown}
-					rightButtons={<Button color='white' backgroundColor='black' text='Send' onClick={addMessageToThread}/>}
+					rightButtons={
+						<>
+							<Button color='white' backgroundColor='black' text='Send' onClick={addMessageToThread} />
+							<ImageUploader {...{setThread, curMessage, setCurMessage, setTypingBubble}} />
+						</>
+					}
 				/>
 			</footer>
 		</div>
