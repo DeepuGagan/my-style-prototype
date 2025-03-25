@@ -9,7 +9,7 @@ const ImageUploader = ({
     setTypingBubble
 }) => {
     const [images, setImages] = React.useState([]);
-
+    const maxImgs = 20
     const addImageToThread = async ({base64Img}) => {
         setThread(prevMessages => [
             ...prevMessages,
@@ -56,8 +56,10 @@ console.log('image',curMessage)
     return (
         <div className="App">
             <ImageUploading
+                multiple={false}
                 value={images}
                 onChange={onChange}
+                maxNumber={maxImgs}
                 dataURLKey="data_url"
                 acceptType={["jpg"]}
             >
