@@ -20,6 +20,7 @@ const ProductPoseMap = {
 
 const ChatBubbles = (props) => {
 	const { thread = [] } = props
+	const { planInfo } = props
 	const [poseInfo, setPoseInfo] = useState([])
 	const [imgSize, setImgSize] = useState({})
 	const EndOfThreadRef = useRef(null)
@@ -77,6 +78,29 @@ const ChatBubbles = (props) => {
 		)
 	}
 
+
+	const generateImageMapForPrem = () => {
+	  
+		const [{ part, position: { x, y } } = {}] = poseInfo
+	  
+		return (
+		  <map name="productMap">
+			<area
+			  shape="circle"
+			  coords={`${x},${y},100`}
+			  alt={part}
+			  onblur="this.focus()"
+			  autofocus
+			  href={ProductPoseMap[part] || `https://www.google.com/search?q=${part}-accessories`}
+			  title={ProductPoseMap[part] || `https://www.google.com/search?q=${part}-accessories`}
+			  target="_blank"
+			  rel="noopener noreferrer"
+			/>
+		  </map>
+		);
+	  };
+	  
+	
 	function drawTest(x, y) {
 		const canvas = canvasRef.current
 		const context = canvas.getContext('2d');
@@ -130,8 +154,9 @@ const ChatBubbles = (props) => {
 					  avatar={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.png'}
 					date={new Date()}
 				/>
-				{MsgType !== 'msg-txt' ? <img src={MsgText} alt="user-phot0" ref={userPhotoRef} style={{width:'350px', height:'350px'}} useMap='#productMap' onClick={handleClick}/> : null }
-				{MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMap() : null }
+				{(planInfo==='premium' || planInfo==='luxury') && MsgType !== 'msg-txt' ? <img src={MsgText} alt="user-phot0" ref={userPhotoRef} style={{width:'350px', height:'350px'}} useMap='#productMap' onClick={handleClick}/> : null }
+				{planInfo==='premium' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMapForPrem() : null }
+				{planInfo==='luxury' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMap() : null }
 				{/* <Avatar
             src={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.jpeg'}
             alt="logo"
@@ -142,6 +167,8 @@ const ChatBubbles = (props) => {
           />			 */}
 		  {/* {MsgType !== 'msg-txt' && poseInfo.length > 0 ? CanvasImg(MsgText) : null }
 				{MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMap() : null } */}
+{/* {planInfo==='premium' && planInfo==='luxury'} */}
+
 				</div>
 				</div>
 			))}
