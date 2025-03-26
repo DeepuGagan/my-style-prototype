@@ -1,6 +1,6 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
-
+const { analyseImage, visionAxios, getMockVision } = require('../util/visionAPI')
 
 const ImageUploader = ({
     setThread,
@@ -20,7 +20,9 @@ const ImageUploader = ({
             }
         ])
         setTypingBubble(true)
-        const googleVisionApiRes = 'Whatever vison api gives/ we make it to give'
+				// await analyseImage()
+				debugger
+        const googleVisionApiRes = await getMockVision(base64Img)
         setTypingBubble(false)
         setThread(prevMessages => [
             ...prevMessages,
@@ -47,6 +49,9 @@ const ImageUploader = ({
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
         const base64Img = imageList[0].data_url
+				// debugger
+				// analyseImage(base64Img)
+				// visionAxios(base64Img)
         addImageToThread({base64Img})
       };
 console.log('image',curMessage)
