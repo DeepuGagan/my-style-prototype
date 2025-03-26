@@ -45,7 +45,7 @@ const ImageUploader = ({
         setThread(prevMessages => [
             ...prevMessages,
             {
-                MsgBy: 'MyStyle',
+                MsgBy: 'My Stylist',
                 MsgText: `${googleVisionApiRes}`,
                 MsgType: 'msg-txt',//'msg-img',
             }

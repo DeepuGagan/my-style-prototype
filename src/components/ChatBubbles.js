@@ -141,7 +141,7 @@ const ChatBubbles = (props) => {
 					id='my-image'
 					position={MsgBy === 'user' ? 'right' : 'left'}
 					type={MsgType === 'msg-txt' ? "text" : "photo"}
-					title={MsgBy === 'user' ? 'You' : 'MyStyle'}
+					title={MsgBy === 'user' ? 'You' : 'My Stylist'}
 					text={MsgType === 'msg-txt' ? MsgText : undefined}
 					data={{
 						uri: MsgText,
