@@ -1,5 +1,7 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
+
+// const { predict } = require('@codait/max-human-pose-estimator')
 const { analyseImage, visionAxios, getMockVision } = require('../util/visionAPI')
 
 const ImageUploader = ({
@@ -23,6 +25,15 @@ const ImageUploader = ({
 				// await analyseImage()
 				debugger
         const googleVisionApiRes = await getMockVision(base64Img)
+				debugger
+				const img  = document.getElementsByClassName('rce-mbox-photo--img')[0]
+				debugger
+				// predict(img)
+  			// .then(prediction => {
+				// 	debugger
+    		// 	console.log(prediction.posesDetected)
+  			// })
+				debugger
         setTypingBubble(false)
         setThread(prevMessages => [
             ...prevMessages,
