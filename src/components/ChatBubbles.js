@@ -28,11 +28,11 @@ const ChatBubbles = (props) => {
 	const canvasRef = useRef(null);
 
 	const detect = async (net) => {
-		debugger
+		// debugger
 		if(typeof userPhotoRef.current !== "undefined" && userPhotoRef.current !== null) {
 		const userPhoto = userPhotoRef.current;
 		setImgSize({ImgW: userPhotoRef.current.naturalWidth, ImgH: userPhotoRef.current.naturalHeight})
-		debugger
+		// debugger
 		const pose = await net.estimateSinglePose(userPhoto);
 		// drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
 		console.log('pose: ', pose)
@@ -43,12 +43,12 @@ const ChatBubbles = (props) => {
 	};
 
 	const runPosenet = async () => {
-		debugger
+		// debugger
 		const net = await posenet.load({
 			inputResolution: { width: 640, height: 480 },
 			scale: 0.5,
 		});
-		debugger
+		// debugger
 		detect(net)
 	}
 	runPosenet()
@@ -109,7 +109,7 @@ const ChatBubbles = (props) => {
 		<>
 			{console.log("pose: ", poseInfo)}
 			{thread.map(({MsgBy, MsgText, MsgType}, i) => (
-				<>
+				<div key={`justForTestingParent${i}`}>
 				<div key={`justForTesting${i}`} >
 				<MessageBox
 					key = {`chat-bubble-${i}`}
@@ -118,19 +118,32 @@ const ChatBubbles = (props) => {
 					position={MsgBy === 'user' ? 'right' : 'left'}
 					type={MsgType === 'msg-txt' ? "text" : "photo"}
 					title={MsgBy === 'user' ? 'You' : 'MyStyle'}
-					text={MsgType === 'msg-txt' ? MsgText : 'user-uploaded-image'}
+					text={MsgType === 'msg-txt' ? MsgText : undefined}
 					data={{
 						uri: MsgText,
+						width:300,
+						height:300,
 					  }}
+					//   avatar={
+					// 	<Avatar src={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.jpeg'} />
+					//   }
+					  avatar={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.png'}
 					date={new Date()}
 				/>
-				{MsgType !== 'msg-txt' ? <img src={MsgText} alt="user-phot0" ref={userPhotoRef} useMap='#productMap' onClick={handleClick}/> : null }
+				{MsgType !== 'msg-txt' ? <img src={MsgText} alt="user-phot0" ref={userPhotoRef} style={{width:'350px', height:'350px'}} useMap='#productMap' onClick={handleClick}/> : null }
 				{MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMap() : null }
-				{/* <Avatar src={'https://picsum.photos/200/300'} alt={'logo'} size='large' type='circle flexible' /> */}
-				{/* {MsgType !== 'msg-txt' && poseInfo.length > 0 ? CanvasImg(MsgText) : null }
+				{/* <Avatar
+            src={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.jpeg'}
+            alt="logo"
+            size="large"
+            type="circle flexible"
+            position={MsgBy === 'user' ? 'right' : 'left'}
+            style={{ float: MsgBy === 'user' ? 'right' : 'left' }}
+          />			 */}
+		  {/* {MsgType !== 'msg-txt' && poseInfo.length > 0 ? CanvasImg(MsgText) : null }
 				{MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMap() : null } */}
 				</div>
-				</>
+				</div>
 			))}
 			<div ref={EndOfThreadRef} />
 		</>
