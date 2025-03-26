@@ -1,6 +1,6 @@
 const imageVisionMock = {
 	'cUNvCRgAAAABJRU5ErkJggg=': {
-		tags: ['Blazer', 'Denim', 'Leather Jacket', 'Bag', 'Eyewear'],
+		tags: ['Blazer', 'Denim', 'Leather', 'Jacket', 'Bag', 'Eyewear'],
 	},
 	'o5ArjKqCkAAAAAElFTkSuQmC': {
 		tags: ['Outerwear', 'Cocktail Dress', 'Jewellery', 'Red' ]
