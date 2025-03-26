@@ -6,6 +6,8 @@ import TypingLoader from './TypingLoader'
 import "./ChatFeed.css"
 import { generateChatGPTRes } from '../util/chatgpt'
 import ImageUploader from './ImageUploader'
+import { cloudUpload } from 'ionicons/icons';
+
 
 
 const ChatFeed = (props) => {
@@ -13,7 +15,8 @@ const ChatFeed = (props) => {
 	const [curMessage, setCurMessage ] = useState('')
 	const [typingBubble, setTypingBubble ] = useState(false) 
 	const userMsg = useRef();
-
+	const {planInfo} = props
+console.log(planInfo);
 	const addMessageToThread = async () => {
 		setThread(prevMessages => [
 			...prevMessages,
@@ -68,7 +71,7 @@ const ChatFeed = (props) => {
 					rightButtons={
 						<>
 							<Button color='white' backgroundColor='black' text='Send' onClick={addMessageToThread} />
-							<ImageUploader {...{setThread, curMessage, setCurMessage, setTypingBubble}} />
+							{(planInfo === 'premium' || planInfo === 'luxury') && <ImageUploader {...{setThread, curMessage, setCurMessage, setTypingBubble}} />}
 						</>
 					}
 				/>

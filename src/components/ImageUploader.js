@@ -1,8 +1,14 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
-
+import { IonIcon} from '@ionic/react';
+import { cloudUpload } from 'ionicons/icons';
 // const { predict } = require('@codait/max-human-pose-estimator')
 const { analyseImage, visionAxios, getMockVision } = require('../util/visionAPI')
+
+
+
+
+
 
 const ImageUploader = ({
     setThread,
@@ -23,17 +29,17 @@ const ImageUploader = ({
         ])
         setTypingBubble(true)
 				// await analyseImage()
-				debugger
+				// debugger
         const googleVisionApiRes = await getMockVision(base64Img)
-				debugger
+				// debugger
 				const img  = document.getElementsByClassName('rce-mbox-photo--img')[0]
-				debugger
+				// debugger
 				// predict(img)
   			// .then(prediction => {
-				// 	debugger
+				// 	// debugger
     		// 	console.log(prediction.posesDetected)
   			// })
-				debugger
+				// debugger
         setTypingBubble(false)
         setThread(prevMessages => [
             ...prevMessages,
@@ -60,7 +66,7 @@ const ImageUploader = ({
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
         const base64Img = imageList[0].data_url
-				// debugger
+				// // debugger
 				// analyseImage(base64Img)
 				// visionAxios(base64Img)
         addImageToThread({base64Img})
@@ -70,7 +76,7 @@ console.log('image',curMessage)
 
 
     return (
-        <div className="App">
+        <div className="App" style={{marginLeft:'5px'}}>
             <ImageUploading
                 multiple={false}
                 value={images}
@@ -93,7 +99,7 @@ console.log('image',curMessage)
                                 onClick={onImageUpload}
                                 {...dragProps}
                             >
-                                Upload
+                                <IonIcon icon={cloudUpload} style={{ fontSize: '2rem'}} />
                             </button>
                         </div>
                         {/* {

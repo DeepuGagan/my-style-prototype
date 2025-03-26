@@ -42,9 +42,9 @@ const chatgptDavinci = async (prompt) => {
 
 const getRelaventResults = async (openAiResponses) => {
 	const API_ENDPOINT = `http://localhost:8888`
-	const keywords = openAiResponses.trim()
+	const keywords = openAiResponses.trim().toLowerCase()
 	const analysisRes = await axios.get(`${API_ENDPOINT}/${keywords}`, { headers: { 'Content-Type': 'application/json'}})
-	debugger
+	// debugger
 
 	console.log('analysisRes: ', analysisRes.data)
 	return analysisRes.data
@@ -60,13 +60,13 @@ const generateChatGPTRes = async (prompt) => {
 	console.log('prompt: ', prompt)
 	const openAiResponses = await chatgptDavinci(prompt)
 	console.log('completion : ', prompt, ' res: ', openAiResponses)
-	debugger
+	// debugger
 	if(isGreetings) return openAiResponses
 	const res = await getRelaventResults(openAiResponses)
 	const URLSet = Array.from(new Set(res.map(({URL}) => URL)))
 	const productsSet = Array.from(new Set(res.map(({Infocat__Product_Retailer_URL: product}) => product.slice(1,product.length-1).split(',').map(i => i)).flatMap(i => i)))
 	const chatRes = `\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`
-	debugger
+	// debugger
 	return chatRes
 }
 

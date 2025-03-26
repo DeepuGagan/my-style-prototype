@@ -67,9 +67,10 @@ const visionAxios = async (img) => {
 
 const getRelaventResults = async (keywords) => {
 	const API_ENDPOINT = `http://localhost:8888`
-	const analysisRes = await axios.get(`${API_ENDPOINT}/${keywords}`, { headers: { 'Content-Type': 'application/json'}})
-	debugger
-
+	const lowerCaseKeywords = keywords.toLowerCase()
+	const analysisRes = await axios.get(`${API_ENDPOINT}/${lowerCaseKeywords}`, { headers: { 'Content-Type': 'application/json'}})
+	// debugger
+	console.log({a:`${API_ENDPOINT}/${lowerCaseKeywords}`, b:`${API_ENDPOINT}/${keywords}`});
 	console.log('analysisRes: ', analysisRes.data)
 	return analysisRes.data
 }
@@ -80,15 +81,15 @@ const ArrayToString = (URLSet) => URLSet.reduce((url,final) => `${final}\n${url}
 const getMockVision = async (base64Img) => {
 	const base64Id = base64Img.split("base64,")[1]
 	const uniqueKey = base64Id.slice(base64Id.length-25, base64Id.length-1)
-	debugger
+	// debugger
 	const tags =  imageVisionMock[uniqueKey] ? imageVisionMock[uniqueKey].tags : ['fashion', 'party', 'dress']
 	const keywords = tags.join('-')
-	debugger
+	// debugger
 	const res = await getRelaventResults(keywords)
 	const URLSet = Array.from(new Set(res.map(({URL}) => URL)))
 	const productsSet = Array.from(new Set(res.map(({Infocat__Product_Retailer_URL: product}) => product.slice(1,product.length-1).split(',').map(i => i)).flatMap(i => i)))
 	const chatRes = `\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`
-	debugger
+	// debugger
 	return chatRes
 }
 
