@@ -29,6 +29,7 @@ const ChatBubbles = (props) => {
 					data={{
 						uri: MsgText,
 					  }}
+					date={new Date()}
 				/>
 				{/* <Avatar src={'https://picsum.photos/200/300'} alt={'logo'} size='large' type='circle flexible' /> */}
 				</div>

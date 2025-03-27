@@ -1,4 +1,7 @@
+const { analyseImage } = require('./visionAPI')
+
 const axios = require('axios').default
+
 
 const chatgptTurbo = async (prompt) => {
 	const API_ENDPOINT = 'https://api.openai.com/v1/chat/completions'
@@ -17,9 +20,6 @@ const chatgptTurbo = async (prompt) => {
 }
 
 const chatgptDavinci = async (prompt) => {
-	const welcomePrompts = ["hi", "Hi", "Hello", "hello", "hi ", "Hi ", "Hello ", "hello "]
-	prompt = welcomePrompts.includes(prompt) ? prompt :  `Which 5 instyle magazine article links do you recommend on "${prompt}"`
-	console.log('prompt: ', prompt)
 	const API_ENDPOINT = 'https://api.openai.com/v1/completions'
 	const requestBody = {
 		model: "text-davinci-003",
@@ -40,10 +40,34 @@ const chatgptDavinci = async (prompt) => {
 	return completion.data.choices[0].text
 }
 
+const getRelaventResults = async (openAiResponses) => {
+	const API_ENDPOINT = `http://localhost:8888`
+	const keywords = openAiResponses.trim()
+	const analysisRes = await axios.get(`${API_ENDPOINT}/${keywords}`, { headers: { 'Content-Type': 'application/json'}})
+	debugger
+
+	console.log('analysisRes: ', analysisRes.data)
+	return analysisRes.data
+}
+
+const ArrayToString = (URLSet) => URLSet.reduce((url,final) => `${final}\n${url}`,'')
+
 const generateChatGPTRes = async (prompt) => {
+	const welcomePrompts = ["hi", "Hi", "Hello", "hello", "hi ", "Hi ", "Hello ", "hello "]
+	const isGreetings = welcomePrompts.includes(prompt)
+	prompt = isGreetings ? prompt :  `Extract keywords from this sentence and return result as string separated by '-'. "${prompt}"` //Extract keywords and categories from this sentence.
+	// prompt = `list out instyle magazine links for "${prompt}"`
+	console.log('prompt: ', prompt)
 	const openAiResponses = await chatgptDavinci(prompt)
-	// console.log('completion : ', prompt, ' res: ', openAiResponses)
-	return openAiResponses
+	console.log('completion : ', prompt, ' res: ', openAiResponses)
+	debugger
+	if(isGreetings) return openAiResponses
+	const res = await getRelaventResults(openAiResponses)
+	const URLSet = Array.from(new Set(res.map(({URL}) => URL)))
+	const productsSet = Array.from(new Set(res.map(({Infocat__Product_Retailer_URL: product}) => product.slice(1,product.length-1).split(',').map(i => i)).flatMap(i => i)))
+	const chatRes = `\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`
+	debugger
+	return chatRes
 }
 
 module.exports = {generateChatGPTRes}
