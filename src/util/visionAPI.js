@@ -77,8 +77,10 @@ const getRelaventResults = async (keywords) => {
 
 const ArrayToString = (URLSet) => URLSet.reduce((url,final) => `${final}\n${url}`,'')
 
+const ArrayToStringForPrem = (URLSet) => URLSet.filter((set,index)=>index===0).reduce((url,final) => `${final}\n${url}`,'')
 
-const getMockVision = async (base64Img) => {
+
+const getMockVision = async ({base64Img,planInfo}) => {
 	const base64Id = base64Img.split("base64,")[1]
 	const uniqueKey = base64Id.slice(base64Id.length-25, base64Id.length-1)
 	// debugger
@@ -86,11 +88,18 @@ const getMockVision = async (base64Img) => {
 	const keywords = tags.join('-')
 	// debugger
 	const res = await getRelaventResults(keywords)
+	console.log({getMockVisionRES:res})
 	const URLSet = Array.from(new Set(res.map(({URL}) => URL)))
 	const productsSet = Array.from(new Set(res.map(({Infocat__Product_Retailer_URL: product}) => product.slice(1,product.length-1).split(',').map(i => i)).flatMap(i => i)))
-	const chatRes = `\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`
+	// const chatRes = `\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`
 	// debugger
-	return chatRes
+	const chatResponseToPlans = {
+		basic:`\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
+		premium:`\nChoose from these relavent products:\n${ArrayToStringForPrem(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
+		luxury:`\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
+	}
+	return chatResponseToPlans[planInfo]
+	// return chatRes
 }
 
 module.exports = { analyseImage, visionAxios, getMockVision }

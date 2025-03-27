@@ -14,7 +14,8 @@ const ImageUploader = ({
     setThread,
     curMessage,
     setCurMessage,
-    setTypingBubble
+    setTypingBubble,
+    planInfo,
 }) => {
     const [images, setImages] = React.useState([]);
     const maxImgs = 20
@@ -30,7 +31,7 @@ const ImageUploader = ({
         setTypingBubble(true)
 				// await analyseImage()
 				// debugger
-        const googleVisionApiRes = await getMockVision(base64Img)
+        const googleVisionApiRes = await getMockVision({base64Img,planInfo})
 				// debugger
 				const img  = document.getElementsByClassName('rce-mbox-photo--img')[0]
 				// debugger
