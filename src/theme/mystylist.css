@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=MB+Empire');
+
+:root {
+	--ion-background-color: #FFF;
+	--ion-font-family: "MB Empire",Helvetica,Arial,sans-serif;
+	--ion-text-color: #000000F2;
+	--ion-color-primary: #db3a00;
+}
