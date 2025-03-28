@@ -50,24 +50,33 @@ const getRelaventResults = async (openAiResponses) => {
 	return analysisRes.data
 }
 
+const ArrayToStringForPrem = (URLSet) => URLSet.filter((set,index)=>index===0).reduce((url,final) => `${final}\n${url}`,'')
+
 const ArrayToString = (URLSet) => URLSet.reduce((url,final) => `${final}\n${url}`,'')
 
-const generateChatGPTRes = async (prompt) => {
+const generateChatGPTRes = async ({curMessage,planInfo}) => {
 	const welcomePrompts = ["hi", "Hi", "Hello", "hello", "hi ", "Hi ", "Hello ", "hello "]
-	const isGreetings = welcomePrompts.includes(prompt)
-	prompt = isGreetings ? prompt :  `Extract keywords from this sentence and return result as string separated by '-'. "${prompt}"` //Extract keywords and categories from this sentence.
+	const isGreetings = welcomePrompts.includes(curMessage)
+	curMessage = isGreetings ? curMessage :  `Extract keywords from this sentence and return result as string separated by '-'. "${curMessage}"` //Extract keywords and categories from this sentence.
 	// prompt = `list out instyle magazine links for "${prompt}"`
-	console.log('prompt: ', prompt)
-	const openAiResponses = await chatgptDavinci(prompt)
-	console.log('completion : ', prompt, ' res: ', openAiResponses)
+	console.log('prompt: ', curMessage)
+	const openAiResponses = await chatgptDavinci(curMessage)
+	console.log('completion : ', curMessage, ' res: ', openAiResponses)
 	// debugger
 	if(isGreetings) return openAiResponses
 	const res = await getRelaventResults(openAiResponses)
+	console.log({generateChatGPTRES:res,planInfo})
 	const URLSet = Array.from(new Set(res.map(({URL}) => URL)))
 	const productsSet = Array.from(new Set(res.map(({Infocat__Product_Retailer_URL: product}) => product.slice(1,product.length-1).split(',').map(i => i)).flatMap(i => i)))
-	const chatRes = `\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`
+	// const chatRes = `\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`
+	const chatResponseToPlans = {
+		basic:`\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
+		premium:`\nChoose from these relavent products:\n${ArrayToStringForPrem(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
+		luxury:`\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
+	}
 	// debugger
-	return chatRes
+	return chatResponseToPlans[planInfo]
+	// return chatRes
 }
 
 module.exports = {generateChatGPTRes}

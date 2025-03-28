@@ -27,7 +27,7 @@ console.log(planInfo);
 			}
 		])
 		setTypingBubble(true)
-		const chatgptRes = await generateChatGPTRes(curMessage)
+		const chatgptRes = await generateChatGPTRes({curMessage,planInfo})
 		setTypingBubble(false)
 		setThread(prevMessages => [
 			...prevMessages,
@@ -57,7 +57,7 @@ console.log(planInfo);
 
 	return (
 		<div className='chat-feed'>
-			<ChatBubbles thread={thread} />
+			<ChatBubbles thread={thread} planInfo={planInfo} />
 			<TypingLoader typingBubble={typingBubble}/>	
 			<footer>
 				<Input
@@ -71,7 +71,7 @@ console.log(planInfo);
 					rightButtons={
 						<>
 							<Button color='white' backgroundColor='black' text='Send' onClick={addMessageToThread} />
-							{(planInfo === 'premium' || planInfo === 'luxury') && <ImageUploader {...{setThread, curMessage, setCurMessage, setTypingBubble}} />}
+							{(planInfo === 'premium' || planInfo === 'luxury') && <ImageUploader {...{ setThread, curMessage, setCurMessage, setTypingBubble, planInfo }} />}
 						</>
 					}
 				/>
