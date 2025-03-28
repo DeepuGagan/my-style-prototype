@@ -21,6 +21,7 @@ const ProductPoseMap = {
 const ChatBubbles = (props) => {
 	const { thread = [] } = props
 	const { planInfo } = props
+	const [poseNet, setPoseNet] = useState(null)
 	const [poseInfo, setPoseInfo] = useState([])
 	const [imgSize, setImgSize] = useState({})
 	const EndOfThreadRef = useRef(null)
@@ -28,31 +29,33 @@ const ChatBubbles = (props) => {
 	const msgRef = useRef(null)
 	const canvasRef = useRef(null);
 
-	const detect = async (net) => {
+	const detectPose = async () => {
 		// debugger
-		if(typeof userPhotoRef.current !== "undefined" && userPhotoRef.current !== null) {
-		const userPhoto = userPhotoRef.current;
-		setImgSize({ImgW: userPhotoRef.current.naturalWidth, ImgH: userPhotoRef.current.naturalHeight})
-		// debugger
-		const pose = await net.estimateSinglePose(userPhoto);
-		// drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
-		console.log('pose: ', pose)
-		setPoseInfo(pose.keypoints)
-		poseInfo.map(({position:{x,y}}) => drawTest(x,y))
-		// return pose;
+		console.log('in detect')
+		if(poseNet !== null && typeof userPhotoRef.current !== "undefined" && userPhotoRef.current !== null) {
+			const userPhoto = userPhotoRef.current;
+			setImgSize({ImgW: userPhotoRef.current.naturalWidth, ImgH: userPhotoRef.current.naturalHeight})
+			// debugger
+			const pose = await poseNet.estimateSinglePose(userPhoto);
+			// drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
+			console.log('pose: ', pose)
+			setPoseInfo(pose.keypoints)
+			poseInfo.map(({position:{x,y}}) => drawTest(x,y))
+			// return pose;
 		}	
 	};
 
-	const runPosenet = async () => {
+
+	const LoadPosenet = async () => {
+		console.log('in LoadPosenet')
 		// debugger
-		const net = await posenet.load({
-			inputResolution: { width: 640, height: 480 },
-			scale: 0.5,
-		});
-		// debugger
-		detect(net)
+		setPoseNet(
+			await posenet.load({
+				inputResolution: { width: 640, height: 480 },
+				scale: 0.5,
+			})
+		)
 	}
-	runPosenet()
   const scrollToBottom = () => {
     EndOfThreadRef.current?.scrollIntoView({ behavior: "smooth" })
   }
@@ -61,6 +64,11 @@ const ChatBubbles = (props) => {
     scrollToBottom()
 		// detect(poseNet)
   }, [thread]);
+
+
+	useEffect(() => {
+		LoadPosenet()
+	}, [])
 
 	const handleClick = (e) => {
 		console.log('click e: ', e)
@@ -71,7 +79,7 @@ const ChatBubbles = (props) => {
 			<map name="productMap">
   			{
 				poseInfo.map(({part, position:{x,y}}) => 
-					<area shape="circle" coords={`${x},${y},100`} alt={part} onblur="this.focus()" autofocus  href={ProductPoseMap[part] || `https://www.google.com/search?q=${part}-accessories`} title={ProductPoseMap[part] || `https://www.google.com/search?q=${part}-accessories`}  target="_blank" rel="noopener noreferrer" />
+				<area shape="circle" coords={`${x},${y},100`} alt={part} onblur="this.focus()" autoFocus href={ProductPoseMap[part] || `https://www.google.com/search?q=${part}-accessories`} title={ProductPoseMap[part] || `https://www.google.com/search?q=${part}-accessories`} target="_blank" rel="noopener noreferrer" />
 				)
 				}
 			</map>
@@ -90,7 +98,7 @@ const ChatBubbles = (props) => {
 			  coords={`${x},${y},100`}
 			  alt={part}
 			  onblur="this.focus()"
-			  autofocus
+			  autoFocus
 			  href={ProductPoseMap[part] || `https://www.google.com/search?q=${part}-accessories`}
 			  title={ProductPoseMap[part] || `https://www.google.com/search?q=${part}-accessories`}
 			  target="_blank"
@@ -122,10 +130,10 @@ const ChatBubbles = (props) => {
 	// 'height':`${userPhotoRef.current.naturalHeight}px`, 'width':`${userPhotoRef.current.naturalWidth}px`
 	const CanvasImg = (MsgText) => (
 		<div className="outsideWrapper" style={{'height':'480px', 'width':`640px`}}> 
-    	<div className="insideWrapper"> 
-				<img src={MsgText}  alt="user-phot0" ref={userPhotoRef} useMap='#productMap' onClick={handleClick} className="coveredImage" />
-        <canvas className="coveringCanvas" ref={canvasRef}></canvas>
-    	</div>
+			<div className="insideWrapper">
+				<img src={MsgText} alt="user-phot0" ref={userPhotoRef} useMap='#productMap' className="coveredImage" />
+				<canvas className="coveringCanvas" ref={canvasRef}></canvas>
+			</div>
 		</div>
 	)
 
@@ -154,8 +162,7 @@ const ChatBubbles = (props) => {
 					  avatar={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.png'}
 					date={new Date()}
 				/>
-				{(planInfo==='premium' || planInfo==='luxury') && MsgType !== 'msg-txt' ? <img src={MsgText} alt="user-phot0" ref={userPhotoRef} style={{width:'350px', height:'350px'}} useMap='#productMap' onClick={handleClick}/> : null }
-				{planInfo==='premium' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMapForPrem() : null }
+						{(planInfo === 'premium' || planInfo === 'luxury') && MsgType !== 'msg-txt' ? <img src={MsgText} alt="user-phot0" ref={userPhotoRef} onLoad={detectPose} style={{ width: '350px', height: '350px' }} useMap='#productMap' /> : null}				{planInfo === 'premium' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMapForPrem() : null}
 				{planInfo==='luxury' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMap() : null }
 				{/* <Avatar
             src={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.jpeg'}
