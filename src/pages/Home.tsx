@@ -1,45 +1,89 @@
-import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar,IonSelect,IonSelectOption } from '@ionic/react';
+import React, { useState, useEffect } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonIcon } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import ChatFeed from '../components/ChatFeed'
+import HomePage from '../components/HomePage';
+import { closeCircle } from 'ionicons/icons';
 import './Home.css';
+import '../components/HomePage.css'
 
 const Home: React.FC = () => {
 	const [selectedPlan, setSelectedPlan] = useState<string>('basic');
-
+	const [toggleOn, setToggleOn] = useState(false);
+	
 	const handlePlanChange = (event: CustomEvent) => {
-	  setSelectedPlan(event.detail.value);
+		setSelectedPlan(event.detail.value);
 	};
+
+	const handle = () => {
+		console.log('clicl');
+		setToggleOn(prev => !prev)
+	}
+
 	return (
-		<IonPage>
-			<IonHeader>
-			<IonToolbar>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-			<img src="/assets/icon/myStylistIcon.png" alt="ICON" style={{marginLeft:'20px',width:'6em',height:'6em'}}/>
-            <IonTitle style={{ marginRight: '10px',color:'white' }}>MyStylist</IonTitle>
-            <IonSelect
-              style={{ marginRight: '0', marginLeft: '70%',marginTop:'1.5em',color:'white' }}
-              value={selectedPlan}
-              placeholder="Select Plan"
-              onIonChange={handlePlanChange}
-            >
-              <IonSelectOption value="basic">Basic plan</IonSelectOption>
-              <IonSelectOption value="premium">Premium plan</IonSelectOption>
-              <IonSelectOption value="luxury">Luxury plan</IonSelectOption>
-            </IonSelect>
-          </div>
-        </IonToolbar>
-			</IonHeader>
-			<IonContent fullscreen>
-				<IonHeader collapse="condense">
-					<IonToolbar>
-						<IonTitle size="large">Blank</IonTitle>
-					</IonToolbar>
-				</IonHeader>
-				{/* <ExploreContainer /> */}
-				<ChatFeed planInfo={selectedPlan} />
-			</IonContent>
-		</IonPage>
+
+		<div className="container">
+			<img src="/assets/icon/instyleSS.png" alt="Image" />
+			{/* <iframe src="https://www.instyle.com/" style={{ width: '100%', height: '80%' }} /> */}
+			
+			{
+				toggleOn && (
+					<div className='home-pag'>
+						<IonPage className='centered-page' >
+							<IonHeader>
+								<IonToolbar>
+									<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+										<img src="/assets/icon/myStylistIcon.png" alt="ICON" style={{ marginLeft: '20px', width: '6em', height: '6em' }} />
+										<IonTitle style={{ marginRight: '10px', color: 'white' }}>My Stylist</IonTitle>
+										<IonSelect
+											style={{ marginRight: '0', marginLeft: '70%', marginTop: '1.5em', color: 'white' }}
+											value={selectedPlan}
+											placeholder="Select Plan"
+											onIonChange={handlePlanChange}
+										>
+											<IonSelectOption value="basic">Lite plan</IonSelectOption>
+											<IonSelectOption value="premium">Elite plan</IonSelectOption>
+											<IonSelectOption value="luxury">Signature plan</IonSelectOption>
+										</IonSelect>
+									</div>
+								</IonToolbar>
+							</IonHeader>
+							<IonContent fullscreen>
+								<IonHeader collapse="condense">
+									<IonToolbar>
+										<IonTitle size="large">Blank</IonTitle>
+									</IonToolbar>
+								</IonHeader>
+								{/* <ExploreContainer /> */}
+								<ChatFeed planInfo={selectedPlan} />
+							</IonContent>
+						</IonPage>
+					</div>
+				)
+			}
+			{
+				toggleOn ? (
+					<div className="toggle-button" >
+						<IonIcon icon={closeCircle} style={{ fontSize: '2rem' }} onClick={handle} />
+					</div>
+
+				) :
+					(
+						<div className="toggle-button" >
+							{/* <button className="switch" > hi </button> */}
+							<img src="/assets/icon/popUpIcon.png" alt="icon" className='imgIcon' onClick={handle} />
+						</div>
+					)
+			}
+
+
+			{/* <div className="toggle-button">
+				<label className="switch">
+					<input type="checkbox" checked={toggleOn} onChange={handleToggle} />
+					<span className="slider round"></span>
+				</label>
+			</div> */}
+		</div>
 	);
 };
 
