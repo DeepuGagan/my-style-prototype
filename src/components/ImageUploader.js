@@ -36,6 +36,11 @@ const ImageUploader = ({
             ...prevMessages,
 						{
 							MsgBy: 'My Stylist',
+							MsgText: 'Checkout these styles that matches your outlook: ',
+							MsgType: 'msg-txt',
+						},
+						{
+							MsgBy: 'My Stylist',
 							MsgText: sampleImg.img6,
 							MsgType: 'msg-img',
 						},
