@@ -6,10 +6,12 @@ import HomePage from '../components/HomePage';
 import { closeCircle } from 'ionicons/icons';
 import './Home.css';
 import '../components/HomePage.css'
+import { DATA } from '../util/data';
 
 const Home: React.FC = () => {
 	const [selectedPlan, setSelectedPlan] = useState<string>('basic');
 	const [toggleOn, setToggleOn] = useState(false);
+	console.log(DATA);
 	
 	const handlePlanChange = (event: CustomEvent) => {
 		setSelectedPlan(event.detail.value);
@@ -25,7 +27,7 @@ const Home: React.FC = () => {
 		<div className="container">
 			<img src="/assets/icon/instyleSS.png" alt="Image" />
 			{/* <iframe src="https://www.instyle.com/" style={{ width: '100%', height: '80%' }} /> */}
-			
+
 			{
 				toggleOn && (
 					<div className='home-pag'>
@@ -33,10 +35,13 @@ const Home: React.FC = () => {
 							<IonHeader>
 								<IonToolbar>
 									<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-										<img src="/assets/icon/myStylistIcon.png" alt="ICON" style={{ marginLeft: '20px', width: '6em', height: '6em' }} />
-										<IonTitle style={{ marginRight: '10px', color: 'white' }}>My Stylist</IonTitle>
+										<img src="/assets/icon/MyStylistLogo.png" alt="ICON" style={{ marginLeft: '20px', width: '6em', height: '6em' }} />
+										<IonTitle style={{ marginRight: '10px' }}>
+											My Stylist
+											<div className='subtitle'> Complete My Outlook</div>
+										</IonTitle>
 										<IonSelect
-											style={{ marginRight: '0', marginLeft: '70%', marginTop: '1.5em', color: 'white' }}
+											style={{ marginRight: '0', marginLeft: '60%', marginTop: '1.5em', }}
 											value={selectedPlan}
 											placeholder="Select Plan"
 											onIonChange={handlePlanChange}
@@ -71,7 +76,7 @@ const Home: React.FC = () => {
 					(
 						<div className="toggle-button" >
 							{/* <button className="switch" > hi </button> */}
-							<img src="/assets/icon/popUpIcon.png" alt="icon" className='imgIcon' onClick={handle} />
+							<img src="/assets/icon/popUpIcon.jpg" alt="icon" className='imgIcon' onClick={handle} style={{width:'55px',height:'55px'}}/>
 						</div>
 					)
 			}

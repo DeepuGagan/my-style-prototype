@@ -10,6 +10,8 @@ const vision = require('react-cloud-vision-api')
 vision.init({auth: process.env.REACT_APP_VISION_API_KEY})
 console.log('vision: ', process.env.REACT_APP_VISION_API_KEY)
 const { imageVisionMock } = require('./visionAPIMock')
+const { DATA } = require('./data')
+
 
 const analyseImage = async (img) => {
 	// const imgFile = '../img/sample.jpg'
@@ -75,6 +77,14 @@ const getRelaventResults = async (keywords) => {
 	return analysisRes.data
 }
 
+
+const getMockData = ({keywords}) => {
+	const keys = keywords.toLowerCase()
+	const convertedKeywords = keys.replace(/-(.)/g, (_, char) => char.toUpperCase()).replace(/-/g, '')
+	console.log({keys,keywords,convertedKeywords});
+	return DATA[convertedKeywords] || DATA['defaultWear']
+}
+
 const ArrayToString = (URLSet) => URLSet.reduce((url,final) => `${final}\n${url}`,'')
 
 const ArrayToStringForPrem = (URLSet) => URLSet.filter((set,index)=>index===0).reduce((url,final) => `${final}\n${url}`,'')
@@ -87,15 +97,16 @@ const getMockVision = async ({base64Img,planInfo}) => {
 	const tags =  imageVisionMock[uniqueKey] ? imageVisionMock[uniqueKey].tags : ['fashion', 'party', 'dress']
 	const keywords = tags.join('-')
 	// debugger
-	const res = await getRelaventResults(keywords)
+	// const res = await getRelaventResults(keywords)
+	const res = getMockData({keywords})
 	console.log({getMockVisionRES:res})
 	const URLSet = Array.from(new Set(res.map(({URL}) => URL)))
 	const productsSet = Array.from(new Set(res.map(({Infocat__Product_Retailer_URL: product}) => product.slice(1,product.length-1).split(',').map(i => i)).flatMap(i => i)))
 	// const chatRes = `\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`
 	// debugger
 	const chatResponseToPlans = {
-		basic:`\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
-		premium:`\nChoose from these relavent products:\n${ArrayToStringForPrem(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
+		basic:`\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
+		premium:`\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
 		luxury:`\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
 	}
 	return chatResponseToPlans[planInfo]

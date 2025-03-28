@@ -1,7 +1,7 @@
 const { analyseImage } = require('./visionAPI')
 
 const axios = require('axios').default
-
+const { DATA } = require('./data')
 
 const chatgptTurbo = async (prompt) => {
 	const API_ENDPOINT = 'https://api.openai.com/v1/chat/completions'
@@ -43,11 +43,19 @@ const chatgptDavinci = async (prompt) => {
 const getRelaventResults = async (openAiResponses) => {
 	const API_ENDPOINT = `http://localhost:8888`
 	const keywords = openAiResponses.trim().toLowerCase()
+	console.log({keywords});
 	const analysisRes = await axios.get(`${API_ENDPOINT}/${keywords}`, { headers: { 'Content-Type': 'application/json'}})
 	// debugger
 
 	console.log('analysisRes: ', analysisRes.data)
 	return analysisRes.data
+}
+
+const getMockData = ({openAiResponses}) => {
+	const keywords = openAiResponses.trim().toLowerCase()
+	const convertedKeywords = keywords.replace(/-(.)/g, (_, char) => char.toUpperCase()).replace(/-/g, '')
+	console.log(openAiResponses,keywords,convertedKeywords);
+	return DATA[convertedKeywords] || DATA['defaultWear']
 }
 
 const ArrayToStringForPrem = (URLSet) => URLSet.filter((set,index)=>index===0).reduce((url,final) => `${final}\n${url}`,'')
@@ -64,14 +72,15 @@ const generateChatGPTRes = async ({curMessage,planInfo}) => {
 	console.log('completion : ', curMessage, ' res: ', openAiResponses)
 	// debugger
 	if(isGreetings) return openAiResponses
-	const res = await getRelaventResults(openAiResponses)
+	// const res = await getRelaventResults(openAiResponses)
+	const res = getMockData({openAiResponses})
 	console.log({generateChatGPTRES:res,planInfo})
 	const URLSet = Array.from(new Set(res.map(({URL}) => URL)))
 	const productsSet = Array.from(new Set(res.map(({Infocat__Product_Retailer_URL: product}) => product.slice(1,product.length-1).split(',').map(i => i)).flatMap(i => i)))
 	// const chatRes = `\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`
 	const chatResponseToPlans = {
-		basic:`\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
-		premium:`\nChoose from these relavent products:\n${ArrayToStringForPrem(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
+		basic:`\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
+		premium:`\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
 		luxury:`\nChoose from these relavent products:\n${ArrayToString(productsSet)}\nGet your style suggestions from these articles:\n${ArrayToString(URLSet)}`,
 	}
 	// debugger
