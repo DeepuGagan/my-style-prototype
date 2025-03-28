@@ -32,7 +32,7 @@ console.log(planInfo);
 		setThread(prevMessages => [
 			...prevMessages,
 			{
-				MsgBy: 'MyStyle',
+				MsgBy: 'My Stylist',
 				MsgText: `${chatgptRes}`,
 				MsgType: 'msg-txt',
 			}
