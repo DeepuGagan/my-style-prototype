@@ -3,6 +3,13 @@
     bottom: 20px;
     right: 20px;
     z-index: 2;
+    border-radius: 50%;
+    border: #e87548 solid 2px;
+    /* width: 50px;
+    height: 50px; */
+  }
+  .toggle-button:hover {
+    border: none;
   }
   
   .switch {
@@ -56,11 +63,15 @@
   } */
   
   .home-pag {
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;
-    box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+      /* box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);
     -webkit-box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);
-    -moz-box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);
+    -moz-box-shadow: 11px 33px 74px 21pxrgba(0, 0, 0, 0.85);
+        */
+      box-shadow: -2px -2px 55px 42px rgba(145, 144, 144, 0.74);
+      -webkit-box-shadow: -2px -2px 55px 42px rgba(145, 144, 144, 0.74);
+      -moz-box-shadow: -2px -2px 55px 42px rgba(145, 144, 144, 0.74);
   }
   
   /* .home-page.show {
@@ -81,11 +92,12 @@
     height: 4rem;
     border-radius: 50%;
     animation: wobble 1s ease-in-out infinite;
-    /* box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);
--webkit-box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);
--moz-box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85); */
+        /* box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);
+    -webkit-box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);
+    -moz-box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85); */
   }
   .imgIcon:hover{
+    scale: 1.2;
     box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);
     -webkit-box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);
     -moz-box-shadow: 11px 33px 74px 21px rgba(0,0,0,0.85);

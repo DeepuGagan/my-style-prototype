@@ -4,7 +4,16 @@
 	background-color: grey;
 	padding: 10px;
 	height: 10vh;
+	border-radius: 20px;
 }
+
+.chat-feed textarea {
+	/* width: 10%; */
+	/* height: 200px; */
+	border-radius: 12px;
+	border: 1px solid #ccc;
+	/* Add more CSS properties as needed */
+  }
 
 .chat-feed {
 	height: 80vh;

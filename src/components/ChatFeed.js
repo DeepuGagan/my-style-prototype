@@ -6,7 +6,8 @@ import TypingLoader from './TypingLoader'
 import "./ChatFeed.css"
 import { generateChatGPTRes } from '../util/chatgpt'
 import ImageUploader from './ImageUploader'
-import { cloudUpload } from 'ionicons/icons';
+import { IonIcon} from '@ionic/react';
+import { cloudUpload, send } from 'ionicons/icons';
 
 
 
@@ -70,7 +71,7 @@ console.log(planInfo);
 					onKeyDown={onKeyDown}
 					rightButtons={
 						<>
-							<Button color='white' backgroundColor='black' text='Send' onClick={addMessageToThread} />
+							<Button color='black' backgroundColor='white' text={<IonIcon icon={send} style={{ fontSize: '1rem'}} />} onClick={addMessageToThread} />
 							{(planInfo === 'premium' || planInfo === 'luxury') && <ImageUploader {...{ setThread, curMessage, setCurMessage, setTypingBubble, planInfo }} />}
 						</>
 					}
