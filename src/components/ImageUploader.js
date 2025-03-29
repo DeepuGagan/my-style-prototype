@@ -4,11 +4,7 @@ import { IonIcon} from '@ionic/react';
 import { cloudUpload } from 'ionicons/icons';
 // const { predict } = require('@codait/max-human-pose-estimator')
 const { analyseImage, visionAxios, getMockVision } = require('../util/visionAPI')
-
-
-
-
-
+const { images: sampleImg } = require('../util/signatureImg')
 
 const ImageUploader = ({
     setThread,
@@ -29,21 +25,30 @@ const ImageUploader = ({
             }
         ])
         setTypingBubble(true)
-				// await analyseImage()
-				// debugger
+				
         const googleVisionApiRes = await getMockVision({base64Img,planInfo})
 				// debugger
 				const img  = document.getElementsByClassName('rce-mbox-photo--img')[0]
-				// debugger
-				// predict(img)
-  			// .then(prediction => {
-				// 	// debugger
-    		// 	console.log(prediction.posesDetected)
-  			// })
-				// debugger
+				
         setTypingBubble(false)
+				
         setThread(prevMessages => [
             ...prevMessages,
+						{
+							MsgBy: 'My Stylist',
+							MsgText: sampleImg.img6,
+							MsgType: 'msg-img',
+						},
+						{
+							MsgBy: 'My Stylist',
+							MsgText: sampleImg.img8,
+							MsgType: 'msg-img',
+						},
+						{
+							MsgBy: 'My Stylist',
+							MsgText: sampleImg.img9,
+							MsgType: 'msg-img',
+						},
             {
                 MsgBy: 'My Stylist',
                 MsgText: `${googleVisionApiRes}`,
@@ -67,12 +72,12 @@ const ImageUploader = ({
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
         const base64Img = imageList[0].data_url
-				// // debugger
+				debugger
 				// analyseImage(base64Img)
 				// visionAxios(base64Img)
         addImageToThread({base64Img})
       };
-console.log('image',curMessage)
+			console.log('image',curMessage)
     // const showImg = () => <img src={images[0]['data_url']} alt="Red dot" width='100px' />
 
 
