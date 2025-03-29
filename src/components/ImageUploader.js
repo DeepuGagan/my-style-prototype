@@ -31,8 +31,8 @@ const ImageUploader = ({
 				const img  = document.getElementsByClassName('rce-mbox-photo--img')[0]
 				
         setTypingBubble(false)
-				
-        setThread(prevMessages => [
+				if(planInfo === 'luxury') {
+					setThread(prevMessages => [
             ...prevMessages,
 						{
 							MsgBy: 'My Stylist',
@@ -54,12 +54,21 @@ const ImageUploader = ({
 							MsgText: sampleImg.img9,
 							MsgType: 'msg-img',
 						},
-            {
-                MsgBy: 'My Stylist',
-                MsgText: `${googleVisionApiRes}`,
-                MsgType: 'msg-txt',//'msg-img',
-            }
-        ])
+            // {
+            //     MsgBy: 'My Stylist',
+            //     MsgText: `${googleVisionApiRes}`,
+            //     MsgType: 'msg-txt',//'msg-img',
+            // }
+        	])
+				}
+        setThread(prevMessages => [
+					...prevMessages,
+					{
+							MsgBy: 'My Stylist',
+							MsgText: `${googleVisionApiRes}`,
+							MsgType: 'msg-txt',//'msg-img',
+					}
+				])
         setCurMessage('')
     }
 
