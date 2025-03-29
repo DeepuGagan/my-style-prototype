@@ -162,9 +162,9 @@ const ChatBubbles = (props) => {
 						height:300,
 							}}
 							//   avatar={
-							// 	<Avatar src={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.jpeg'} />
+							// 	<Avatar src={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/newPic.pngeg'} />
 							//   }
-							avatar={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.jpg'}
+							avatar={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/newPic.png'}
 							date={new Date()}
 						/>
 						{(planInfo === 'premium' || planInfo === 'luxury') && MsgType !== 'msg-txt' && MsgBy === 'user' ? (
