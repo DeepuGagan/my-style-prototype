@@ -31,8 +31,10 @@ const ChatBubbles = (props) => {
 
 	const detectPose = async () => {
 		// debugger
-		console.log('in detect')
-		if(poseNet !== null && typeof userPhotoRef.current !== "undefined" && userPhotoRef.current !== null) {
+		console.log('in detect: ', userPhotoRef.current)
+		debugger
+		if(poseNet !== null && typeof userPhotoRef.current !== "undefined" && userPhotoRef.current !== null && userPhotoRef.current.dataset.source !== 'bot') {
+			debugger
 			const userPhoto = userPhotoRef.current;
 			setImgSize({ImgW: userPhotoRef.current.naturalWidth, ImgH: userPhotoRef.current.naturalHeight})
 			// debugger
@@ -151,7 +153,9 @@ const ChatBubbles = (props) => {
 					type={MsgType === 'msg-txt' ? "text" : "photo"}
 					title={MsgBy === 'user' ? 'You' : 'My Stylist'}
 					text={MsgType === 'msg-txt' ? MsgText : undefined}
+					data-source= {MsgBy === 'user' ? 'user' : 'My Stylist'}
 					data={{
+						source: MsgBy === 'user' ? 'user' : 'bot',
 						uri: MsgText,
 						width:300,
 						height:300,
@@ -162,19 +166,10 @@ const ChatBubbles = (props) => {
 					  avatar={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.png'}
 					date={new Date()}
 				/>
-						{(planInfo === 'premium' || planInfo === 'luxury') && MsgType !== 'msg-txt' ? <img src={MsgText} alt="user-phot0" ref={userPhotoRef} onLoad={detectPose} style={{ width: '350px', height: '350px' }} useMap='#productMap' /> : null}				{planInfo === 'premium' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMapForPrem() : null}
+				{(planInfo === 'premium' || planInfo === 'luxury') && MsgType !== 'msg-txt' && MsgBy === 'user' ? <img src={MsgText} alt={MsgBy === 'user' ? 'user-photo' : 'bot-photo'} data-source= {MsgBy === 'user' ? 'user' : 'bot'} ref={userPhotoRef} onLoad={detectPose} style={{ width: '350px', height: '350px' }} useMap='#productMap' /> : null}				
+				{planInfo === 'premium' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMapForPrem() : null}
 				{planInfo==='luxury' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMap() : null }
-				{/* <Avatar
-            src={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.jpeg'}
-            alt="logo"
-            size="large"
-            type="circle flexible"
-            position={MsgBy === 'user' ? 'right' : 'left'}
-            style={{ float: MsgBy === 'user' ? 'right' : 'left' }}
-          />			 */}
-		  {/* {MsgType !== 'msg-txt' && poseInfo.length > 0 ? CanvasImg(MsgText) : null }
-				{MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMap() : null } */}
-{/* {planInfo==='premium' && planInfo==='luxury'} */}
+				
 
 				</div>
 				</div>
