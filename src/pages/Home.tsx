@@ -7,6 +7,9 @@ import { closeCircle } from 'ionicons/icons';
 import './Home.css';
 import '../components/HomePage.css'
 import { DATA } from '../util/data';
+// import ReactTooltip from "react-tooltip"
+const ReactTooltip = require('react-tooltip')
+
 
 const Home: React.FC = () => {
 	const [selectedPlan, setSelectedPlan] = useState<string>('basic');
@@ -75,9 +78,22 @@ const Home: React.FC = () => {
 
 				) :
 					(
-						<div className="toggle-button" >
-							{/* <button className="switch" > hi </button> */}
-							<img src="/assets/icon/popUpIcon.jpg" alt="icon" className='imgIcon' onClick={handle} style={{width:'55px',height:'55px'}}/>
+						// <div className="toggle-button" >
+						// 	{/* <button className="switch" > hi </button> */}
+						// 	<img src="/assets/icon/popUpIcon.jpg" alt="icon" className='imgIcon' onClick={handle} style={{width:'55px',height:'55px'}}/>
+						// </div>
+						<div className="toggle-button" data-tip data-for="tooltip-checkbox-element" >
+							<img
+								src="/assets/icon/popUpIcon.png"
+								alt="icon"
+								className="imgIcon"
+								onClick={handle}
+								data-tip="Tooltip content"
+								data-place="right"
+								style={{ width: '55px', height: '55px' }}
+							/>
+							{/* <Tooltip id="myTooltip" effect="solid" place="right" /> */}
+							<ReactTooltip id='tooltip-checkbox-element' place='top' effect='solid'> <b>Explore MyStylist</b> </ReactTooltip>
 						</div>
 					)
 			}
