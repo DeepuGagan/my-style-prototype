@@ -152,7 +152,11 @@ const ChatBubbles = (props) => {
 					id='my-image'
 					position={MsgBy === 'user' ? 'right' : 'left'}
 					type={MsgType === 'msg-txt' ? "text" : "photo"}
-					title={MsgBy === 'user' ? 'You' : 'My Stylist'}
+					title={
+						<span style={{color:'#db3a00'}}>
+						  {MsgBy === 'user' ? 'You' : 'My Stylist'}
+						</span>
+					  }
 					text={MsgType === 'msg-txt' ? MsgText : undefined}
 					data-source= {MsgBy === 'user' ? 'user' : 'My Stylist'}
 					data={{
