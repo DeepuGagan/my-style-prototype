@@ -25,7 +25,7 @@ const Home: React.FC = () => {
 	return (
 
 		<div className="container">
-			<img src="/assets/icon/instyleSS.png" alt="Image" />
+			<img src="/assets/icon/instyleSS.png" alt="Image" />{/* mobile*/}
 			{/* <iframe src="https://www.instyle.com/" style={{ width: '100%', height: '80%' }} /> */}
 
 			{
@@ -36,19 +36,20 @@ const Home: React.FC = () => {
 								<IonToolbar>
 									<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 										<img src="/assets/icon/MyStylistLogo.png" alt="ICON" style={{ marginLeft: '20px', width: '6em', height: '6em' }} />
-										<IonTitle style={{ marginRight: '10px' }}>
-											My Stylist
-											<div className='subtitle'> Complete My Outlook</div>
+										<IonTitle style={{ marginRight: '10px', }}>
+											<span style={{fontWeight: '500',fontSize:'35px',wordSpacing: '-4px',letterSpacing: '-2px'}} >My Stylist</span>
+											<div className='subtitle'> <span style={{ fontWeight: '400',fontSize:'16px' }} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Complete My Outlook</span></div>
 										</IonTitle>
 										<IonSelect
 											style={{ marginRight: '0', marginLeft: '60%', marginTop: '1.5em', }}
 											value={selectedPlan}
 											placeholder="Select Plan"
 											onIonChange={handlePlanChange}
+											className="hover-effect"
 										>
-											<IonSelectOption value="basic">Lite plan</IonSelectOption>
-											<IonSelectOption value="premium">Elite plan</IonSelectOption>
-											<IonSelectOption value="luxury">Signature plan</IonSelectOption>
+											<IonSelectOption value="basic">Lite</IonSelectOption>
+											<IonSelectOption value="premium">Elite</IonSelectOption>
+											<IonSelectOption value="luxury">Signature</IonSelectOption>
 										</IonSelect>
 									</div>
 								</IonToolbar>
@@ -68,7 +69,7 @@ const Home: React.FC = () => {
 			}
 			{
 				toggleOn ? (
-					<div className="toggle-button" >
+					<div className="close-btn" >
 						<IonIcon icon={closeCircle} style={{ fontSize: '2rem' }} onClick={handle} />
 					</div>
 

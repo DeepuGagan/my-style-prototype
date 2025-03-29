@@ -60,6 +60,7 @@ const ChatBubbles = (props) => {
 	}
   const scrollToBottom = () => {
     EndOfThreadRef.current?.scrollIntoView({ behavior: "smooth" })
+	// EndOfThreadRef.current?.style.scrollMarginBottom = "50px"
   }
 
   useEffect(() => {
@@ -138,7 +139,7 @@ const ChatBubbles = (props) => {
 			</div>
 		</div>
 	)
-
+//<h1>Hi</h1>
 	return (
 		<>
 			{console.log("pose: ", poseInfo)}
@@ -159,17 +160,46 @@ const ChatBubbles = (props) => {
 						uri: MsgText,
 						width:300,
 						height:300,
-					  }}
-					//   avatar={
-					// 	<Avatar src={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.jpeg'} />
-					//   }
-					  avatar={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.png'}
-					date={new Date()}
-				/>
-				{(planInfo === 'premium' || planInfo === 'luxury') && MsgType !== 'msg-txt' && MsgBy === 'user' ? <img src={MsgText} alt={MsgBy === 'user' ? 'user-photo' : 'bot-photo'} data-source= {MsgBy === 'user' ? 'user' : 'bot'} ref={userPhotoRef} onLoad={detectPose} style={{ width: '350px', height: '350px' }} useMap='#productMap' /> : null}				
-				{planInfo === 'premium' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMapForPrem() : null}
-				{planInfo==='luxury' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMap() : null }
-				
+							}}
+							//   avatar={
+							// 	<Avatar src={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.jpeg'} />
+							//   }
+							avatar={MsgBy === 'user' ? '/assets/icon/profilePic.png' : '/assets/icon/botPic.jpg'}
+							date={new Date()}
+						/>
+						{(planInfo === 'premium' || planInfo === 'luxury') && MsgType !== 'msg-txt' && MsgBy === 'user' ? (
+							<img
+								src={MsgText}
+								alt={MsgBy === 'user' ? 'user-photo' : 'bot-photo'}
+								data-source={MsgBy === 'user' ? 'user' : 'bot'}
+								ref={userPhotoRef}
+								onLoad={detectPose}
+								useMap='#productMap'
+								style={{
+									width: '350px',
+									height: '350px',
+									padding: '10px',
+									// border: '1px solid black',
+									margin: '20px',
+									objectFit: 'contain',
+								}} />) : null}
+						{/* {planInfo === 'premium' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMapForPrem() : null} */}
+						{planInfo === 'luxury'||planInfo === 'premium' && MsgType !== 'msg-txt' && poseInfo.length > 0 ? generateImageMap() : null}
+						{/* (<img
+							src={MsgText}
+							alt="user-phot0"
+							ref={userPhotoRef}
+							onLoad={detectPose}
+							// style={{ width: '350px', height: '350px' }} 
+							useMap='#productMap'
+								style={{
+									width: '350px',
+									height: '350px',
+									padding: '10px',
+									// border: '1px solid black',
+									margin: '20px',
+									objectFit: 'contain',
+								}} />) */}
 
 				</div>
 				</div>
