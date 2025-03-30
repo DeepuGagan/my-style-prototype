@@ -95,7 +95,16 @@ Create a `.env` file in the root directory with your OpenAI API key:
 OPENAI_API_KEY=your_api_key_here
 ```
 
-## 📱 Screenshots
+## 📱 Mobile Applications
+
+### Pre-built APKs
+
+For your convenience, pre-built APK files are available in the `apks` folder:
+
+- `apks/mystyle-instyle-android.apk` - Android application 
+- `apks/mystyle-instyle-ios.ipa` - iOS application package
+
+### Screenshots
 
 *Screenshots will be added soon*
 
