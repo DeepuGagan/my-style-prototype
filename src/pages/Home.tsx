@@ -30,13 +30,13 @@ const Home: React.FC = () => {
 			<IonHeader>
 				<IonToolbar>
 					<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-						<img src="/assets/icon/MyStylistLogo.png" alt="ICON" style={{ marginLeft: '20px', width: '6em', height: '6em' }} />
-						<IonTitle style={{ marginRight: '10px', }}>
-							<span style={{ fontWeight: '500', fontSize: '35px', wordSpacing: '-4px', letterSpacing: '-2px' }} >My Stylist</span>
-							<div className='subtitle'> <span style={{ fontWeight: '400', fontSize: '16px' }} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Complete My Outlook</span></div>
+						<img src="/assets/icon/MyStylistLogo.png" alt="ICON" style={{ marginLeft: '5px', width: '4em', height: '6em' }} />
+						<IonTitle style={{ marginLeft: '10px', }}>
+							<span style={{ fontWeight: '500', fontSize: '20px', wordSpacing: '-4px', letterSpacing: '-2px' }} >My Stylist</span>
+							<div className='subtitle'> <span style={{ fontWeight: '400', fontSize: '16px' }} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Complete My Outlook</span></div>
 						</IonTitle>
 						<IonSelect
-							style={{ marginRight: '0', marginLeft: '60%', marginTop: '1.5em', }}
+							style={{ marginRight: '5%', marginTop: '1.5em', }}
 							value={selectedPlan}
 							placeholder="Select Plan"
 							onIonChange={handlePlanChange}
