@@ -208,9 +208,9 @@ const ChatBubbles = (props) => {
 					</div>
 				</div>
 			))}
-			{/* <div style={{ marginBottom: '100px' }}> mobile */}
+			<div style={{ marginBottom: '100px' }}>
 				<div ref={EndOfThreadRef}></div>
-			{/* </div> */}
+			</div>
 		</>
 	)
 }
