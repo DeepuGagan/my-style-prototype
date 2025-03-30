@@ -144,7 +144,7 @@ const ChatBubbles = (props) => {
 		<>
 			{console.log("pose: ", poseInfo)}
 			{thread.map(({MsgBy, MsgText, MsgType}, i) => (
-				<div key={`justForTestingParent${i}` } style={{marginTop:'75px'}}>
+				<div key={`justForTestingParent${i}` } >
 				<div key={`justForTesting${i}`} >
 				<MessageBox
 					key = {`chat-bubble-${i}`}
@@ -208,9 +208,9 @@ const ChatBubbles = (props) => {
 					</div>
 				</div>
 			))}
-			{/* <div style={{ marginBottom: '100px' }}> mobile */}
+			<div style={{ marginBottom: '50px' }}> 
 				<div ref={EndOfThreadRef}></div>
-			{/* </div> */}
+			</div>
 		</>
 	)
 }
