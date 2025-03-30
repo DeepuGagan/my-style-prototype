@@ -107,3 +107,16 @@ lint/tmp/
 app/release/output.json
 .idea/codeStyles/
 .env
+.env.local
+.git.backup
+
+
+create me a good readme file
+
+
+
+i want you to mention that this is just a prototype, some (minor functionalities is yet to be worked on). Also most of the things are led by AI(openAI) due to limiedapi key, the data is mocked and only availablr for paris location. 
+Make these things sound better aswell
+also, this was one of the innovate/hackathin project from the organizatiopn
+make this main thing - also, this was one of the innovate/hackathin project from the organizatiopn
+add it as a point in Development Status & Roadmap asewell
